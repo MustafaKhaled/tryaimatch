@@ -1,0 +1,46 @@
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --base:#faf8f3;
+  --surface:#f4f3ff;
+  --surface2:#ebe9ff;
+  --border:#e0dff5;
+  --border2:#c9c7e8;
+  --text:#0f0e17;
+  --text-muted:#6b6b8a;
+  --text-faint:#a7a9be;
+  --primary:#7f5af0;
+  --primary-dim:#7f5af015;
+  --match:#2cb67d;
+  --match-dim:#2cb67d20;
+  --accent:#ff8906;
+  --accent-dim:#ff890620;
+  --pop:#e53170;
+  --pop-dim:#e5317015;
+  --highlight:#fff3a8;
+
+  --font-sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-hand:'Caveat',cursive;
+}
+
+@media(prefers-color-scheme:dark){
+  :root{
+    --base:#0f0e17;
+    --surface:#1a1a2e;
+    --surface2:#2e2e3e;
+    --border:#2e2e3e;
+    --border2:#3e3e52;
+    --text:#fffffe;
+    --text-muted:#a7a9be;
+    --text-faint:#6b6b8a;
+    --primary-dim:#7f5af030;
+    --match-dim:#2cb67d30;
+    --accent-dim:#ff890630;
+    --pop-dim:#e5317030;
+    --highlight:#ffe066;
+  }
+}
+
+html,body{background:var(--base);color:var(--text);font-family:var(--font-sans);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
