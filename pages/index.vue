@@ -16,7 +16,7 @@ function startQuiz() {
     <header class="nav">
       <a href="/" class="brand">
         <span class="brand-mark"><i class="ti ti-hexagon" aria-hidden="true" /></span>
-        <span class="brand-name">tryaimatch</span>
+        <img src="/logo.png" alt="tryaimatch logo" class="brand-logo" width="200px" />
       </a>
 
       <nav class="tabs">
