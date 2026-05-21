@@ -6,10 +6,10 @@ useSeoMeta({
   description: 'AI tool reviews, deep dives, and category comparisons — coming soon. In the meantime, the quiz already does the matching.',
   ogTitle: 'tryaimatch blog',
   ogDescription: 'AI tool reviews and comparisons.',
-  ogUrl: 'https://www.tryaimatch.com/blogs'
+  ogUrl: 'https://tryaimatch.com/blogs'
 })
 useHead({
-  link: [{ rel: 'canonical', href: 'https://www.tryaimatch.com/blogs' }]
+  link: [{ rel: 'canonical', href: 'https://tryaimatch.com/blogs' }]
 })
 </script>
 

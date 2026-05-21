@@ -6,10 +6,10 @@ useSeoMeta({
   description: 'Have an AI tool you want listed on tryaimatch? Fill the form and we\'ll schedule a meeting to walk through your product and our match criteria.',
   ogTitle: 'List your product on tryaimatch',
   ogDescription: 'Submit your AI tool to be matched to creators looking for exactly what you build.',
-  ogUrl: 'https://www.tryaimatch.com/contact'
+  ogUrl: 'https://tryaimatch.com/contact'
 })
 useHead({
-  link: [{ rel: 'canonical', href: 'https://www.tryaimatch.com/contact' }]
+  link: [{ rel: 'canonical', href: 'https://tryaimatch.com/contact' }]
 })
 
 const form = reactive({

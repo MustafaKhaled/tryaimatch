@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
   // Canonical site URL — used by sitemap, robots, og:url, canonical links
   site: {
-    url: 'https://www.tryaimatch.com',
+    url: 'https://tryaimatch.com',
     name: 'tryaimatch',
     description: 'Find the AI tool built for how you work. Take a 90-second quiz, get your top-3 matches.',
     defaultLocale: 'en'
@@ -30,8 +30,8 @@ export default defineNuxtConfig({
         { property: 'og:site_name', content: 'tryaimatch' },
         { property: 'og:title', content: 'tryaimatch — Find the AI tool built for how you work' },
         { property: 'og:description', content: 'Take a 90-second quiz, get your top-3 AI tool matches.' },
-        { property: 'og:url', content: 'https://www.tryaimatch.com' },
-        { property: 'og:image', content: 'https://www.tryaimatch.com/og-image.png' },
+        { property: 'og:url', content: 'https://tryaimatch.com' },
+        { property: 'og:image', content: 'https://tryaimatch.com/og-image.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
 
@@ -39,10 +39,10 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'tryaimatch — Find the AI tool built for how you work' },
         { name: 'twitter:description', content: 'Take a 90-second quiz, get your top-3 AI tool matches.' },
-        { name: 'twitter:image', content: 'https://www.tryaimatch.com/og-image.png' }
+        { name: 'twitter:image', content: 'https://tryaimatch.com/og-image.png' }
       ],
       link: [
-        { rel: 'canonical', href: 'https://www.tryaimatch.com' },
+        { rel: 'canonical', href: 'https://tryaimatch.com' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   // Robots.txt — disallow the guided flow (no SEO value, state-dependent)
   robots: {
     disallow: ['/quiz', '/loading', '/results'],
-    sitemap: 'https://www.tryaimatch.com/sitemap.xml'
+    sitemap: 'https://tryaimatch.com/sitemap.xml'
   },
 
   runtimeConfig: {
