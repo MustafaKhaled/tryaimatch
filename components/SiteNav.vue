@@ -18,9 +18,8 @@ function startQuiz() { router.push('/quiz') }
 
 <template>
   <header class="nav">
-    <NuxtLink to="/" class="brand">
-      <span class="brand-mark"><i class="ti ti-hexagon" aria-hidden="true" /></span>
-      <span class="brand-name">tryaimatch</span>
+    <NuxtLink to="/" class="brand" aria-label="tryaimatch home">
+      <img src="/logo.png" alt="tryaimatch" class="brand-logo" />
     </NuxtLink>
 
     <nav class="tabs">
@@ -48,13 +47,14 @@ function startQuiz() { router.push('/quiz') }
   border-bottom:1px solid var(--border);
 }
 .brand{
-  display:flex;align-items:center;gap:8px;
-  font-size:20px;font-weight:600;letter-spacing:-.5px;
-  color:var(--text);
+  display:flex;align-items:center;
   justify-self:start;
   text-decoration:none;
 }
-.brand-mark{font-size:20px;color:var(--text);display:inline-flex}
+.brand-logo{
+  height:36px;width:auto;display:block;
+  max-width:200px;object-fit:contain;
+}
 
 .tabs{display:flex;gap:4px;justify-self:center}
 .tab{
