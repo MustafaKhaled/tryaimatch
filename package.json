@@ -14,9 +14,11 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@nuxt/content": "^3.14.0",
     "@nuxtjs/robots": "^6.0.8",
     "@nuxtjs/sitemap": "^8.0.15",
     "@supabase/supabase-js": "^2.45.0",
+    "better-sqlite3": "^12.10.0",
     "nodemailer": "^8.0.7",
     "nuxt-schema-org": "^6.0.4"
   },

@@ -3,7 +3,7 @@ const router = useRouter()
 
 useSeoMeta({
   title: 'Blogs · tryaimatch',
-  description: 'AI tool reviews, deep dives, and category comparisons — coming soon. In the meantime, the quiz already does the matching.',
+  description: 'AI tool reviews, deep dives, and honest category comparisons. Picking a tool used to be a research project — now it isn\'t.',
   ogTitle: 'tryaimatch blog',
   ogDescription: 'AI tool reviews and comparisons.',
   ogUrl: 'https://tryaimatch.com/blogs'
@@ -11,6 +11,18 @@ useSeoMeta({
 useHead({
   link: [{ rel: 'canonical', href: 'https://tryaimatch.com/blogs' }]
 })
+
+const { data: posts } = await useAsyncData('blog-list', () =>
+  queryCollection('blogs')
+    .order('publishedAt', 'DESC')
+    .all()
+)
+
+function formatDate(d: string | Date | undefined) {
+  if (!d) return ''
+  const date = new Date(d)
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
 </script>
 
 <template>
@@ -18,51 +30,76 @@ useHead({
     <SiteNav />
 
     <main class="wrap">
-      <span class="kicker">BLOGS</span>
-      <h1 class="title">Coming soon.</h1>
-      <p class="lede">
-        We're putting together hands-on reviews, deep dives, and category
-        comparisons. In the meantime, the quiz already does the matching for you.
-      </p>
-      <div class="cta-row">
-        <button class="btn-primary" @click="router.push('/quiz')">
-          <i class="ti ti-sparkles" aria-hidden="true" /> Take the quiz
+      <header class="header">
+        <span class="kicker">BLOGS</span>
+        <h1 class="title">Reviews, deep dives, honest takes.</h1>
+        <p class="lede">
+          We write about AI tools the way you'd want a friend to brief you —
+          short, useful, no sponsored fluff.
+        </p>
+      </header>
+
+      <section v-if="posts && posts.length" class="list">
+        <NuxtLink
+          v-for="post in posts"
+          :key="post.path"
+          :to="post.path"
+          class="post-card"
+        >
+          <div class="post-meta">{{ formatDate(post.publishedAt) }}</div>
+          <h2 class="post-title">{{ post.title }}</h2>
+          <p class="post-desc">{{ post.description }}</p>
+          <span class="post-link">Read post →</span>
+        </NuxtLink>
+      </section>
+
+      <section v-else class="empty">
+        <p>No posts yet — check back soon.</p>
+        <button class="btn-secondary" @click="router.push('/quiz')">
+          <i class="ti ti-sparkles" aria-hidden="true" /> Take the quiz instead
         </button>
-        <button class="btn-secondary" @click="router.push('/contact')">
-          Suggest a topic <span aria-hidden="true">→</span>
-        </button>
-      </div>
+      </section>
     </main>
   </div>
 </template>
 
 <style scoped>
 .page{min-height:100vh;background:var(--base);padding:0 4vw}
-.wrap{max-width:680px;margin:0 auto;padding:80px 0;text-align:center}
+.wrap{max-width:780px;margin:0 auto;padding:64px 0 80px}
+
+.header{text-align:center;margin-bottom:48px}
 .kicker{font-size:12px;font-weight:600;letter-spacing:2px;color:var(--primary)}
 .title{
   font-family:var(--font-hand);
-  font-size:clamp(44px,6vw,68px);font-weight:700;
-  color:var(--text);line-height:1.05;letter-spacing:-.5px;
-  margin:14px 0 18px;
+  font-size:clamp(40px,5vw,56px);font-weight:700;
+  color:var(--text);line-height:1.1;letter-spacing:-.5px;
+  margin:14px 0 14px;
 }
-.lede{font-size:16px;color:var(--text-muted);line-height:1.6;max-width:520px;margin:0 auto 32px}
+.lede{font-size:15px;color:var(--text-muted);max-width:520px;margin:0 auto;line-height:1.6}
 
-.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:15px;font-weight:600;
-  background:var(--primary);color:#fffffe;
-  padding:13px 26px;border-radius:100px;border:none;cursor:pointer;
-  box-shadow:0 4px 0 rgba(15,14,23,.85);
-  transition:transform .1s,box-shadow .1s;
+.list{display:flex;flex-direction:column;gap:14px}
+.post-card{
+  display:block;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px 28px;
+  text-decoration:none;color:inherit;
+  transition:border-color .15s,transform .1s;
 }
-.btn-primary:hover{transform:translateY(2px);box-shadow:0 2px 0 rgba(15,14,23,.85)}
+.post-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.post-meta{font-size:12px;color:var(--text-faint);font-weight:500;letter-spacing:.5px;margin-bottom:6px}
+.post-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3}
+.post-desc{font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:10px}
+.post-link{font-size:13px;font-weight:600;color:var(--primary)}
+
+.empty{text-align:center;color:var(--text-muted);padding:32px}
+.empty p{margin-bottom:18px}
 .btn-secondary{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:15px;font-weight:600;color:var(--text);
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:600;color:var(--text);
   background:var(--base);
-  padding:13px 26px;border-radius:100px;
+  padding:11px 22px;border-radius:100px;
   border:1.5px solid var(--border2);cursor:pointer;
 }
 .btn-secondary:hover{background:var(--surface)}

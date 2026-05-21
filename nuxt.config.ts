@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    '@nuxt/content',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-schema-org'
