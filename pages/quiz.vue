@@ -30,7 +30,7 @@ const activeCategory = computed(() =>
   chosenCategory.value ? categories[chosenCategory.value] : null
 )
 const total = computed(() => 1 + (activeCategory.value?.questions.length ?? 0))
-const progress = computed(() => Math.round(((step.value + 1) / total.value) * 100))
+const progress = computed(() => Math.round((step.value / total.value) * 100))
 const isLast = computed(() => step.value === total.value - 1)
 
 const currentCatQuestion = computed(() =>
