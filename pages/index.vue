@@ -3,6 +3,34 @@ const router = useRouter()
 function startQuiz() {
   router.push('/quiz')
 }
+
+useSeoMeta({
+  title: 'tryaimatch — Find the AI tool built for how you work',
+  description: 'Take a 90-second quiz, get your top-3 AI tool matches across video, voice, image, writing, coding, and more. No jargon, no ads, no bias.',
+  ogTitle: 'tryaimatch — Find the AI tool built for how you work',
+  ogDescription: 'Take a 90-second quiz, get your top-3 AI tool matches.',
+  ogUrl: 'https://www.tryaimatch.com',
+  ogImage: 'https://www.tryaimatch.com/og-image.png',
+  twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.tryaimatch.com/' }]
+})
+
+// JSON-LD: WebSite + Organization
+useSchemaOrg([
+  defineWebSite({
+    name: 'tryaimatch',
+    url: 'https://www.tryaimatch.com'
+  }),
+  defineOrganization({
+    name: 'tryaimatch',
+    url: 'https://www.tryaimatch.com',
+    logo: 'https://www.tryaimatch.com/logo.png',
+    sameAs: []
+  })
+])
 </script>
 
 <template>

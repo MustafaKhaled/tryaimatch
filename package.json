@@ -14,8 +14,11 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@nuxtjs/robots": "^6.0.8",
+    "@nuxtjs/sitemap": "^8.0.15",
     "@supabase/supabase-js": "^2.45.0",
-    "nodemailer": "^8.0.7"
+    "nodemailer": "^8.0.7",
+    "nuxt-schema-org": "^6.0.4"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.23",

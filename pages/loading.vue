@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { categories, type CategoryId } from '~/data/categories'
 
+useSeoMeta({ title: 'Matching… · tryaimatch', robots: 'noindex, nofollow' })
+
 const router = useRouter()
 const chosenCategory = useState<CategoryId | null>('chosenCategory', () => null)
 

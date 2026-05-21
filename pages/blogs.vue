@@ -1,6 +1,16 @@
 <script setup lang="ts">
-useHead({ title: 'Blogs · tryaimatch' })
 const router = useRouter()
+
+useSeoMeta({
+  title: 'Blogs · tryaimatch',
+  description: 'AI tool reviews, deep dives, and category comparisons — coming soon. In the meantime, the quiz already does the matching.',
+  ogTitle: 'tryaimatch blog',
+  ogDescription: 'AI tool reviews and comparisons.',
+  ogUrl: 'https://www.tryaimatch.com/blogs'
+})
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.tryaimatch.com/blogs' }]
+})
 </script>
 
 <template>

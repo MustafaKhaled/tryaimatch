@@ -3,6 +3,8 @@ import { categories, type CategoryId } from '~/data/categories'
 import type { Answers } from '~/data/schema'
 import { scoreCategory } from '~/data/scoring'
 
+useSeoMeta({ title: 'Your matches · tryaimatch', robots: 'noindex, nofollow' })
+
 const router = useRouter()
 
 const chosenCategory = useState<CategoryId | null>('chosenCategory', () => null)

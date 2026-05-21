@@ -2,6 +2,12 @@
 import { categories, type CategoryId } from '~/data/categories'
 import type { Answers } from '~/data/schema'
 
+useSeoMeta({
+  title: 'Take the quiz · tryaimatch',
+  description: 'Answer a few weighted questions to get matched with the right AI tool.',
+  robots: 'noindex, follow'
+})
+
 const router = useRouter()
 
 const chosenCategory = useState<CategoryId | null>('chosenCategory', () => null)
