@@ -1,11 +1,5 @@
 <script setup lang="ts">
 const router = useRouter()
-const activeTab = ref('home')
-const tabs = [
-  { id: 'home', label: 'Home' },
-  { id: 'blogs', label: 'Blogs' },
-  { id: 'contact', label: 'Contact' }
-]
 function startQuiz() {
   router.push('/quiz')
 }
@@ -13,26 +7,7 @@ function startQuiz() {
 
 <template>
   <div class="page">
-    <header class="nav">
-      <a href="/" class="brand">
-        <span class="brand-mark"><i class="ti ti-hexagon" aria-hidden="true" /></span>
-        <img src="/logo.png" alt="tryaimatch logo" class="brand-logo" width="200px" />
-      </a>
-
-      <nav class="tabs">
-        <button
-          v-for="tab in tabs"
-          :key="tab.id"
-          class="tab"
-          :class="{ active: activeTab === tab.id }"
-          @click="activeTab = tab.id"
-        >
-          {{ tab.label }}
-        </button>
-      </nav>
-
-      <button class="btn-start" @click="startQuiz">Start now</button>
-    </header>
+    <SiteNav />
 
     <main class="hero">
       <section class="hero-left">

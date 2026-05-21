@@ -50,8 +50,9 @@ const canNext = computed(() => !!currentAnswer.value)
 function selectCategory(id: CategoryId) {
   pickerAnswer.value = id
   chosenCategory.value = id
-  // reset answers for the new category
+  // reset answers + analytics flag for the new run
   categoryAnswers.value = {}
+  useState<boolean>('completionTracked').value = false
   setTimeout(() => { step.value = 1 }, 220)
 }
 

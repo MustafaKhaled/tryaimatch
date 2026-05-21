@@ -85,11 +85,55 @@ const rating = ref(0)
 const hovered = ref(0)
 const feedback = ref('')
 const submitted = ref(false)
+const submitting = ref(false)
+const submitError = ref('')
 
-function submitRating() {
+async function submitRating() {
   if (rating.value === 0) return
-  submitted.value = true
+  submitting.value = true
+  submitError.value = ''
+  try {
+    await $fetch('/api/ratings', {
+      method: 'POST',
+      body: {
+        rating: rating.value,
+        comment: feedback.value.trim() || undefined,
+        categoryId: chosenCategory.value,
+        topToolId: tools.value[0]?.name
+      }
+    })
+    submitted.value = true
+  } catch (e: any) {
+    submitError.value = e?.data?.statusMessage || 'Could not save — try again.'
+  } finally {
+    submitting.value = false
+  }
 }
+
+// Track quiz completion exactly once per visit to /results
+const completionStart = Date.now()
+const completionTracked = useState<boolean>('completionTracked', () => false)
+onMounted(async () => {
+  if (completionTracked.value) return
+  if (!chosenCategory.value || tools.value.length === 0) return
+  completionTracked.value = true
+  try {
+    await $fetch('/api/quiz-completions', {
+      method: 'POST',
+      body: {
+        categoryId: chosenCategory.value,
+        answers: categoryAnswers.value,
+        topTools: tools.value.map((t) => ({
+          id: t.name, name: t.name, score: t.score
+        })),
+        durationMs: Date.now() - completionStart
+      }
+    })
+  } catch (e) {
+    // non-blocking — completion tracking failure shouldn't break results UI
+    console.warn('completion tracking failed', e)
+  }
+})
 </script>
 
 <template>
@@ -210,8 +254,11 @@ function submitRating() {
             rows="3"
           />
 
-          <button class="submit-btn" :disabled="rating === 0" @click="submitRating">
-            <i class="ti ti-send" aria-hidden="true" /> Send feedback
+          <p v-if="submitError" class="rate-error">{{ submitError }}</p>
+
+          <button class="submit-btn" :disabled="rating === 0 || submitting" @click="submitRating">
+            <i class="ti ti-send" aria-hidden="true" />
+            {{ submitting ? 'Sending…' : 'Send rating' }}
           </button>
         </div>
 
@@ -392,6 +439,7 @@ function submitRating() {
 }
 .rate-title{font-size:18px;font-weight:600;color:var(--text);margin-bottom:6px}
 .rate-sub{font-size:14px;color:var(--text-muted);margin-bottom:18px}
+.rate-error{color:var(--pop);font-size:13px;margin:0 0 12px}
 
 .stars{display:flex;justify-content:center;gap:6px;margin-bottom:18px}
 .star-btn{
