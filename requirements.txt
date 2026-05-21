@@ -1,0 +1,13 @@
+# This is a Node.js / Nuxt 3 app, not a Python app.
+# Railway does not use requirements.txt for Node projects — it reads package.json.
+#
+# Real dependencies live in: package.json
+# Railway config:            railway.json
+# Process declaration:       Procfile  (web: npm run start)
+#
+# To deploy on Railway:
+#   1. Push this repo to GitHub
+#   2. railway init  →  railway up   (or connect via the Railway dashboard)
+#   3. Railway will run:  npm install && npm run build  →  npm run start
+#
+# Required runtime: Node.js >= 20  (declared in package.json "engines")
