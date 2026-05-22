@@ -6,6 +6,16 @@ let transporter: Transporter | null = null
 function getTransporter(): Transporter | null {
   if (transporter) return transporter
   const config = useRuntimeConfig()
+  // Diagnostic — logs which env vars are present (NOT their values)
+  console.log('[contact] env check', {
+    hasSmtpHost: !!config.smtpHost,
+    hasSmtpUser: !!config.smtpUser,
+    hasSmtpPass: !!config.smtpPass,
+    smtpPort: config.smtpPort,
+    smtpSecure: config.smtpSecure,
+    smtpHostLength: (config.smtpHost || '').length,
+    smtpUserLength: (config.smtpUser || '').length
+  })
   if (!config.smtpHost || !config.smtpUser || !config.smtpPass) return null
   transporter = nodemailer.createTransport({
     host: config.smtpHost,

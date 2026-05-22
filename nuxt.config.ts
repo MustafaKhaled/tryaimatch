@@ -78,15 +78,17 @@ export default defineNuxtConfig({
     sitemap: 'https://tryaimatch.com/sitemap.xml'
   },
 
+  // Defaults here are used in dev only. In production, env vars
+  // prefixed with NUXT_ override them at runtime (e.g. NUXT_SMTP_HOST).
   runtimeConfig: {
-    supabaseUrl: process.env.SUPABASE_URL || '',
-    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY || '',
-    smtpHost: process.env.SMTP_HOST || '',
-    smtpPort: process.env.SMTP_PORT || '587',
-    smtpUser: process.env.SMTP_USER || '',
-    smtpPass: process.env.SMTP_PASS || '',
-    smtpSecure: process.env.SMTP_SECURE || 'false',
-    contactFromEmail: process.env.CONTACT_FROM_EMAIL || 'tryaimatch <hello@tryaimatch.com>',
-    contactToEmail: process.env.CONTACT_TO_EMAIL || 'hello@tryaimatch.com'
+    supabaseUrl: '',
+    supabaseServiceKey: '',
+    smtpHost: '',
+    smtpPort: '587',
+    smtpUser: '',
+    smtpPass: '',
+    smtpSecure: 'false',
+    contactFromEmail: 'hello@tryaimatch.com',
+    contactToEmail: 'hello@tryaimatch.com'
   }
 })
