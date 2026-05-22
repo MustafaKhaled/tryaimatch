@@ -1,4 +1,4 @@
-import { getSupabase } from '../utils/supabase'
+import { query } from '../utils/db'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{
@@ -20,16 +20,15 @@ export default defineEventHandler(async (event) => {
     user_agent: getRequestHeader(event, 'user-agent') ?? null
   }
 
-  const supabase = getSupabase()
-  if (!supabase) {
+  const result = await query(
+    `INSERT INTO ratings (rating, comment, category_id, top_tool_id, user_agent)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [row.rating, row.comment, row.category_id, row.top_tool_id, row.user_agent]
+  )
+
+  if (!result) {
     console.log('[ratings] (no DB configured)', row)
     return { ok: true, persisted: false }
-  }
-
-  const { error } = await supabase.from('ratings').insert(row)
-  if (error) {
-    console.error('[ratings] insert failed', error)
-    throw createError({ statusCode: 500, statusMessage: 'Could not save rating' })
   }
 
   return { ok: true, persisted: true }

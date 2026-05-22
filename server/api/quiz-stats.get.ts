@@ -1,14 +1,13 @@
 // Aggregate stats over quiz_completions.
 //   GET /api/quiz-stats
 // Returns:
-//   { total, byCategory: { [categoryId]: count }, last24h, last7d }
+//   { total, byCategory, last24h, last7d }
 //
-// Lightweight admin-style endpoint. Protected by ADMIN_TOKEN if set.
+// Requires NUXT_ADMIN_TOKEN. Pass via ?token=... or "Authorization: Bearer ..."
 
-import { getSupabase } from '../utils/supabase'
+import { query } from '../utils/db'
 
 export default defineEventHandler(async (event) => {
-  // Require NUXT_ADMIN_TOKEN. Pass via ?token=... or "Authorization: Bearer ..."
   const config = useRuntimeConfig() as any
   const adminToken = (config.adminToken as string | undefined) || ''
   if (!adminToken) {
@@ -20,45 +19,42 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
-  const supabase = getSupabase()
-  if (!supabase) {
+  const result = await query<{
+    total: string
+    last24h: string
+    last7d: string
+  }>(
+    `SELECT
+       COUNT(*)::text AS total,
+       COUNT(*) FILTER (WHERE created_at >= now() - interval '24 hours')::text AS last24h,
+       COUNT(*) FILTER (WHERE created_at >= now() - interval '7 days')::text  AS last7d
+     FROM quiz_completions`
+  )
+
+  if (!result) {
     return { ok: true, persisted: false, total: 0, byCategory: {}, last24h: 0, last7d: 0 }
   }
 
-  const now = Date.now()
-  const oneDayAgo = new Date(now - 24 * 60 * 60 * 1000).toISOString()
-  const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString()
+  const counts = result.rows[0] ?? { total: '0', last24h: '0', last7d: '0' }
 
-  // Run the four counts in parallel
-  const [total, last24h, last7d, byCategoryRows] = await Promise.all([
-    supabase.from('quiz_completions').select('id', { count: 'exact', head: true }),
-    supabase.from('quiz_completions').select('id', { count: 'exact', head: true }).gte('created_at', oneDayAgo),
-    supabase.from('quiz_completions').select('id', { count: 'exact', head: true }).gte('created_at', sevenDaysAgo),
-    supabase.from('quiz_completions').select('category_id')
-  ])
-
-  if (total.error || last24h.error || last7d.error || byCategoryRows.error) {
-    console.error('[quiz-stats] supabase error', {
-      total: total.error,
-      last24h: last24h.error,
-      last7d: last7d.error,
-      byCategory: byCategoryRows.error
-    })
-    throw createError({ statusCode: 500, statusMessage: 'Could not read stats' })
-  }
+  const byCat = await query<{ category_id: string; count: string }>(
+    `SELECT category_id, COUNT(*)::text AS count
+       FROM quiz_completions
+       GROUP BY category_id
+       ORDER BY count DESC`
+  )
 
   const byCategory: Record<string, number> = {}
-  for (const row of byCategoryRows.data ?? []) {
-    const id = (row as any).category_id ?? 'unknown'
-    byCategory[id] = (byCategory[id] ?? 0) + 1
+  for (const row of byCat?.rows ?? []) {
+    byCategory[row.category_id ?? 'unknown'] = parseInt(row.count, 10)
   }
 
   return {
     ok: true,
     persisted: true,
-    total: total.count ?? 0,
-    last24h: last24h.count ?? 0,
-    last7d: last7d.count ?? 0,
+    total: parseInt(counts.total, 10),
+    last24h: parseInt(counts.last24h, 10),
+    last7d: parseInt(counts.last7d, 10),
     byCategory
   }
 })

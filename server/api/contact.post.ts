@@ -1,5 +1,5 @@
 import nodemailer, { type Transporter } from 'nodemailer'
-import { getSupabase } from '../utils/supabase'
+import { query } from '../utils/db'
 
 let transporter: Transporter | null = null
 
@@ -59,21 +59,27 @@ export default defineEventHandler(async (event) => {
 
   const config = useRuntimeConfig()
 
-  // 1) Persist to Supabase (if configured)
-  const supabase = getSupabase()
+  // 1) Persist to Postgres (if DATABASE_URL configured)
   let persisted = false
-  if (supabase) {
-    const { error } = await supabase.from('contact_submissions').insert({
-      name: submission.name,
-      email: submission.email,
-      product_name: submission.productName,
-      product_url: submission.productUrl,
-      category: submission.category,
-      message: submission.message,
-      user_agent: getRequestHeader(event, 'user-agent') ?? null
-    })
-    if (error) console.error('[contact] supabase insert failed', error)
-    else persisted = true
+  try {
+    const result = await query(
+      `INSERT INTO contact_submissions
+         (name, email, product_name, product_url, category, message, user_agent)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [
+        submission.name,
+        submission.email,
+        submission.productName,
+        submission.productUrl,
+        submission.category,
+        submission.message,
+        getRequestHeader(event, 'user-agent') ?? null
+      ]
+    )
+    if (result) persisted = true
+    else console.log('[contact] no DB configured — skipping insert', submission)
+  } catch (e) {
+    console.error('[contact] db insert failed', e)
   }
 
   // 2) Email to hello@tryaimatch.com via SMTP (if configured)

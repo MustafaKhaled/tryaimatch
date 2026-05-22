@@ -1,12 +1,9 @@
 // Paginated list of quiz completions.
 //   GET /api/quiz-completions?limit=50&offset=0&category=code
-// Returns:
-//   { rows: [...], total: number, limit, offset }
 //
-// Each row includes the user's per-question answers (jsonb) and top tools.
-// Protected by ADMIN_TOKEN if set.
+// Requires NUXT_ADMIN_TOKEN. Pass via ?token=... or "Authorization: Bearer ..."
 
-import { getSupabase } from '../utils/supabase'
+import { query } from '../utils/db'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig() as any
@@ -20,38 +17,41 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
-  const query = getQuery(event)
-  const limit = Math.min(Number(query.limit ?? 50), 200)
-  const offset = Math.max(Number(query.offset ?? 0), 0)
-  const category = (query.category as string | undefined)?.trim() || null
+  const q = getQuery(event)
+  const limit = Math.min(Math.max(Number(q.limit ?? 50), 1), 200)
+  const offset = Math.max(Number(q.offset ?? 0), 0)
+  const category = (q.category as string | undefined)?.trim() || null
 
-  const supabase = getSupabase()
-  if (!supabase) {
-    return { ok: true, persisted: false, rows: [], total: 0, limit, offset }
+  const params: any[] = []
+  let where = ''
+  if (category) {
+    params.push(category)
+    where = `WHERE category_id = $${params.length}`
   }
 
-  let q = supabase
-    .from('quiz_completions')
-    .select(
-      'id, created_at, category_id, answers, top_tools, duration_ms, user_agent, referer',
-      { count: 'exact' }
+  // Run total + page in parallel
+  const [totalRes, pageRes] = await Promise.all([
+    query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM quiz_completions ${where}`, params),
+    query(
+      `SELECT id, created_at, category_id, answers, top_tools,
+              duration_ms, user_agent, referer
+         FROM quiz_completions
+         ${where}
+         ORDER BY created_at DESC
+         LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+      [...params, limit, offset]
     )
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1)
+  ])
 
-  if (category) q = q.eq('category_id', category)
-
-  const { data, count, error } = await q
-  if (error) {
-    console.error('[quiz-completions GET] supabase error', error)
-    throw createError({ statusCode: 500, statusMessage: 'Could not read completions' })
+  if (!totalRes || !pageRes) {
+    return { ok: true, persisted: false, rows: [], total: 0, limit, offset }
   }
 
   return {
     ok: true,
     persisted: true,
-    rows: data ?? [],
-    total: count ?? 0,
+    rows: pageRes.rows,
+    total: parseInt(totalRes.rows[0]?.count ?? '0', 10),
     limit,
     offset
   }

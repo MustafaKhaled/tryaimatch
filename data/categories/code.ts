@@ -133,7 +133,7 @@ export const codeCategory: Category = {
       fullApp: 9, scripting: 7, debugging: 8, learning: 5, vscode: true, jetbrains: false, terminal: false, browser: false,
       python: 8, javascript: 9, polyglot: 8, largeContext: 7, multiFile: 9, singleFile: 8, small: 6,
       canEditFiles: true, canReviewBeforeEdit: true, cloudEnv: false, hasFree: true, price: 15 },
-    { id: 'replit',         name: 'Replit AI',      maker: 'Replit',   icon: 'ti-cloud-code',     color: 'primary', affiliateUrl: 'https://replit.com',
+    { id: 'replit',         name: 'Replit AI',      maker: 'Replit',   icon: 'ti-cloud-code',     color: 'primary', affiliateUrl: 'https://replit.com/refer/tryaimatch',
       fullApp: 6, scripting: 6, debugging: 7, learning: 10, vscode: false, jetbrains: false, terminal: false, browser: true,
       python: 7, javascript: 8, polyglot: 7, largeContext: 4, multiFile: 5, singleFile: 7, small: 9,
       canEditFiles: false, canReviewBeforeEdit: true, cloudEnv: true, hasFree: true, price: 20 },

@@ -81,8 +81,7 @@ export default defineNuxtConfig({
   // Defaults here are used in dev only. In production, env vars
   // prefixed with NUXT_ override them at runtime (e.g. NUXT_SMTP_HOST).
   runtimeConfig: {
-    supabaseUrl: '',
-    supabaseServiceKey: '',
+    databaseUrl: '',
     smtpHost: '',
     smtpPort: '587',
     smtpUser: '',

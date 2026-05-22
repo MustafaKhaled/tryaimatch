@@ -69,7 +69,7 @@ export const voiceCategory: Category = {
     }
   ],
   tools: [
-    { id: 'elevenlabs', name: 'ElevenLabs', maker: 'ElevenLabs', icon: 'ti-microphone',     color: 'primary', affiliateUrl: 'https://elevenlabs.io',
+    { id: 'elevenlabs', name: 'ElevenLabs', maker: 'ElevenLabs', icon: 'ti-microphone',     color: 'primary', affiliateUrl: 'https://try.elevenlabs.io/n4vt045y2otu',
       narration: 10, podcast: 7, cloning: 10, characters: 10, multilingual: 10, ttsOnly: 10, studio: 5, hasFree: true,  price: 22 },
     { id: 'murf',       name: 'Murf',       maker: 'Murf.ai',   icon: 'ti-speakerphone',   color: 'match',   affiliateUrl: 'https://murf.ai',
       narration: 10, podcast: 5, cloning: 6,  characters: 7,  multilingual: 9,  ttsOnly: 9,  studio: 6, hasFree: true,  price: 19 },

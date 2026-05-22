@@ -1,4 +1,4 @@
-import { getSupabase } from '../utils/supabase'
+import { query } from '../utils/db'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{
@@ -21,16 +21,23 @@ export default defineEventHandler(async (event) => {
     referer: getRequestHeader(event, 'referer') ?? null
   }
 
-  const supabase = getSupabase()
-  if (!supabase) {
+  const result = await query(
+    `INSERT INTO quiz_completions
+       (category_id, answers, top_tools, duration_ms, user_agent, referer)
+     VALUES ($1, $2::jsonb, $3::jsonb, $4, $5, $6)`,
+    [
+      row.category_id,
+      JSON.stringify(row.answers),
+      JSON.stringify(row.top_tools),
+      row.duration_ms,
+      row.user_agent,
+      row.referer
+    ]
+  )
+
+  if (!result) {
     console.log('[quiz-completions] (no DB configured)', row)
     return { ok: true, persisted: false }
-  }
-
-  const { error } = await supabase.from('quiz_completions').insert(row)
-  if (error) {
-    console.error('[quiz-completions] insert failed', error)
-    throw createError({ statusCode: 500, statusMessage: 'Could not save completion' })
   }
 
   return { ok: true, persisted: true }
