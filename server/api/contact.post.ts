@@ -11,7 +11,12 @@ function getTransporter(): Transporter | null {
     host: config.smtpHost,
     port: Number(config.smtpPort) || 587,
     secure: String(config.smtpSecure) === 'true',
-    auth: { user: config.smtpUser, pass: config.smtpPass }
+    auth: { user: config.smtpUser, pass: config.smtpPass },
+    // Fail fast so the request doesn't hang forever if the SMTP host
+    // is unreachable (e.g. host blocks outbound 587)
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000
   })
   return transporter
 }
