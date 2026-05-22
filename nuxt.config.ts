@@ -89,6 +89,7 @@ export default defineNuxtConfig({
     smtpPass: '',
     smtpSecure: 'false',
     contactFromEmail: 'hello@tryaimatch.com',
-    contactToEmail: 'hello@tryaimatch.com'
+    contactToEmail: 'hello@tryaimatch.com',
+    adminToken: '' // set NUXT_ADMIN_TOKEN to require auth on /api/quiz-stats + /api/quiz-completions GET
   }
 })
