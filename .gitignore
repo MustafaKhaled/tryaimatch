@@ -1,6 +1,33 @@
-node_modules
-.nuxt
-.output
+# Dependencies
+node_modules/
+
+# Nuxt build artifacts
+.nuxt/
+.output/
+.data/
+dist/
+
+# Nuxt Content's local SQLite cache (regenerated on every build)
+contents.sqlite
+contents.sqlite-shm
+contents.sqlite-wal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment files
 .env
+.env.local
+.env.*.local
+
+# Editor / OS
 .DS_Store
-dist
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
