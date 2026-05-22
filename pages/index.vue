@@ -5,10 +5,11 @@ function startQuiz() {
 }
 
 useSeoMeta({
-  title: 'tryaimatch — Find the AI tool built for how you work',
-  description: 'Take a 90-second quiz, get your top-3 AI tool matches across video, voice, image, writing, coding, and more. No jargon, no ads, no bias.',
-  ogTitle: 'tryaimatch — Find the AI tool built for how you work',
-  ogDescription: 'Take a 90-second quiz, get your top-3 AI tool matches.',
+  title: 'Best AI Tools in 2026 — Find the Right One in 90 Seconds | tryaimatch',
+  description: 'Find the best AI tool for coding, video, voice, image, writing, presentations, SEO, automation, support, or data. Take the 90-second match quiz — no ads, no bias.',
+  keywords: 'best AI tools, best AI tool 2026, AI tool finder, best AI coding tool, best AI video generator, best AI voice generator, best AI image generator, best AI writing assistant',
+  ogTitle: 'Best AI Tools in 2026 — Find Yours in 90 Seconds',
+  ogDescription: 'Match yourself to the best AI tool in 10 categories. No listicles, no sponsored picks.',
   ogUrl: 'https://tryaimatch.com',
   ogImage: 'https://tryaimatch.com/og-image.png',
   twitterCard: 'summary_large_image'

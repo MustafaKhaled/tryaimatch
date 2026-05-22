@@ -11,8 +11,8 @@ export default defineNuxtConfig({
   // Canonical site URL — used by sitemap, robots, og:url, canonical links
   site: {
     url: 'https://tryaimatch.com',
-    name: 'tryaimatch',
-    description: 'Find the AI tool built for how you work. Take a 90-second quiz, get your top-3 matches.',
+    name: 'tryaimatch — Best AI Tools, Matched to How You Work',
+    description: 'Find the best AI tool for coding, video, voice, image, writing, presentations, SEO, automation, support, or data. 90-second match quiz — no listicles, no sponsored picks.',
     defaultLocale: 'en'
   },
 
