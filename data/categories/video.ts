@@ -73,7 +73,7 @@ export const videoCategory: Category = {
   tools: [
     { id: 'heygen',    name: 'HeyGen',    maker: 'HeyGen',    icon: 'ti-video',       color: 'primary', affiliateUrl: 'https://www.heygen.com',
       avatar: 10, shorts: 8, cinema: 4,  repurpose: 7, voice: 9, auto: 9, tweak: 8, manual: 5, hasFree: true,  price: 24 },
-    { id: 'synthesia', name: 'Synthesia', maker: 'Synthesia', icon: 'ti-player-play', color: 'match',   affiliateUrl: 'https://www.synthesia.io',
+    { id: 'synthesia', name: 'Synthesia', maker: 'Synthesia', icon: 'ti-player-play', color: 'match',   affiliateUrl: 'https://www.synthesia.io/?via=try-ai-match',
       avatar: 10, shorts: 6, cinema: 3,  repurpose: 4, voice: 9, auto: 9, tweak: 7, manual: 4, hasFree: true,  price: 29 },
     { id: 'pictory',   name: 'Pictory',   maker: 'Pictory',   icon: 'ti-movie',       color: 'accent',  affiliateUrl: 'https://pictory.ai',
       avatar: 4,  shorts: 9, cinema: 4,  repurpose: 10, voice: 7, auto: 9, tweak: 7, manual: 5, hasFree: false, price: 23 },
