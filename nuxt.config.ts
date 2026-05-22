@@ -79,16 +79,9 @@ export default defineNuxtConfig({
   },
 
   // Defaults here are used in dev only. In production, env vars
-  // prefixed with NUXT_ override them at runtime (e.g. NUXT_SMTP_HOST).
+  // prefixed with NUXT_ override them at runtime (e.g. NUXT_DATABASE_URL).
   runtimeConfig: {
     databaseUrl: '',
-    smtpHost: '',
-    smtpPort: '587',
-    smtpUser: '',
-    smtpPass: '',
-    smtpSecure: 'false',
-    contactFromEmail: 'hello@tryaimatch.com',
-    contactToEmail: 'hello@tryaimatch.com',
-    adminToken: '' // set NUXT_ADMIN_TOKEN to require auth on /api/quiz-stats + /api/quiz-completions GET
+    adminToken: '' // set NUXT_ADMIN_TOKEN to require auth on admin GET endpoints
   }
 })

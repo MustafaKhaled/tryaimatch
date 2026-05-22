@@ -18,12 +18,10 @@
     "@nuxtjs/robots": "^6.0.8",
     "@nuxtjs/sitemap": "^8.0.15",
     "better-sqlite3": "^12.10.0",
-    "nodemailer": "^8.0.7",
     "nuxt-schema-org": "^6.0.4",
     "pg": "^8.21.0"
   },
   "devDependencies": {
-    "@types/nodemailer": "^6.4.23",
     "@types/pg": "^8.20.0",
     "nuxt": "^3.13.0",
     "vue": "^3.4.0",
