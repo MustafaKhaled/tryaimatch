@@ -65,7 +65,7 @@ function formatDate(d: string | Date | undefined) {
 
 <style scoped>
 .page{min-height:100vh;background:var(--base);padding:0 4vw}
-.wrap{max-width:780px;margin:0 auto;padding:64px 0 80px}
+.wrap{max-width:1100px;margin:0 auto;padding:64px 0 80px}
 
 .header{text-align:center;margin-bottom:48px}
 .kicker{font-size:12px;font-weight:600;letter-spacing:2px;color:var(--primary)}
@@ -77,21 +77,30 @@ function formatDate(d: string | Date | undefined) {
 }
 .lede{font-size:15px;color:var(--text-muted);max-width:520px;margin:0 auto;line-height:1.6}
 
-.list{display:flex;flex-direction:column;gap:14px}
+.list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+@media(max-width:720px){
+  .list{grid-template-columns:1fr}
+}
+
 .post-card{
-  display:block;
+  display:flex;flex-direction:column;
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:18px;
   padding:24px 28px;
   text-decoration:none;color:inherit;
   transition:border-color .15s,transform .1s;
+  height:100%;
 }
 .post-card:hover{border-color:var(--border2);transform:translateY(-1px)}
 .post-meta{font-size:12px;color:var(--text-faint);font-weight:500;letter-spacing:.5px;margin-bottom:6px}
-.post-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3}
-.post-desc{font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:10px}
-.post-link{font-size:13px;font-weight:600;color:var(--primary)}
+.post-title{font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3}
+.post-desc{font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;flex:1}
+.post-link{font-size:13px;font-weight:600;color:var(--primary);margin-top:auto}
 
 .empty{text-align:center;color:var(--text-muted);padding:32px}
 .empty p{margin-bottom:18px}
