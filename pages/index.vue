@@ -75,7 +75,7 @@ useSchemaOrg([
             <i class="ti ti-star-filled" aria-hidden="true" />
             Start now
           </button>
-          <button class="btn-secondary">
+          <button class="btn-secondary" @click="router.push('/tools')">
             Browse all tools <span aria-hidden="true">→</span>
           </button>
         </div>

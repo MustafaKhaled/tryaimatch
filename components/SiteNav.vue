@@ -4,6 +4,7 @@ const router = useRouter()
 
 const tabs = [
   { id: 'home',    label: 'Home',    to: '/' },
+  { id: 'tools',   label: 'Tools',   to: '/tools' },
   { id: 'blogs',   label: 'Blogs',   to: '/blogs' },
   { id: 'contact', label: 'Contact', to: '/contact' }
 ]

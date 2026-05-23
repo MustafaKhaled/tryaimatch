@@ -5,6 +5,7 @@ import { queryCollection } from '@nuxt/content/server'
 export default defineSitemapEventHandler(async (event): Promise<SitemapUrlInput[]> => {
   const staticUrls: SitemapUrlInput[] = [
     { loc: '/',        changefreq: 'weekly',  priority: 1.0 },
+    { loc: '/tools',   changefreq: 'weekly',  priority: 0.8 },
     { loc: '/blogs',   changefreq: 'weekly',  priority: 0.7 },
     { loc: '/contact', changefreq: 'monthly', priority: 0.5 }
   ]
