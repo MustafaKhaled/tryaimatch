@@ -53,10 +53,10 @@ export default defineNuxtConfig({
       script: [
         {
           async: true,
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-HRG7JVJRMS'
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-NRQLZ1357B'
         },
         {
-          innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-HRG7JVJRMS');"
+          innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-NRQLZ1357B');"
         }
       ]
     }
