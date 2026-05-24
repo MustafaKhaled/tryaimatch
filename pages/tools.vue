@@ -121,7 +121,13 @@ function priceLabel(t: FlatTool) {
           :class="`accent-${t.color}`"
         >
           <header class="tool-head">
-            <div class="tool-icon"><i :class="['ti', t.icon]" aria-hidden="true" /></div>
+            <ToolLogo
+              :tool-id="t.id"
+              :tool-name="t.name"
+              :fallback-icon="t.icon"
+              :color="t.color"
+              :size="44"
+            />
             <div class="tool-id">
               <div class="tool-name">{{ t.name }}</div>
               <div class="tool-maker">{{ t.maker }}</div>
@@ -227,14 +233,6 @@ function priceLabel(t: FlatTool) {
 }
 
 .tool-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.tool-icon{
-  width:40px;height:40px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.accent-primary .tool-icon{background:var(--primary-dim);color:var(--primary)}
-.accent-match   .tool-icon{background:var(--match-dim);color:var(--match)}
-.accent-accent  .tool-icon{background:var(--accent-dim);color:var(--accent)}
 
 .tool-id{min-width:0}
 .tool-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.2}

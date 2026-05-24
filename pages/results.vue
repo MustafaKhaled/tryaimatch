@@ -16,6 +16,7 @@ const activeCategory = computed(() =>
 const categoryLabel = computed(() => activeCategory.value.label)
 
 type ResultCard = {
+  id: string
   name: string
   cat: string
   score: number
@@ -32,6 +33,7 @@ type ResultCard = {
 const tools = computed<ResultCard[]>(() => {
   const scored = scoreCategory(activeCategory.value, categoryAnswers.value)
   return scored.slice(0, 3).map((t, i) => ({
+    id: t.id,
     name: t.name,
     cat: t.maker,
     score: t.matchPercentage,
@@ -187,9 +189,14 @@ onMounted(async () => {
             <i class="ti ti-star-filled" aria-hidden="true" /> Best match
           </div>
 
-          <div class="tool-icon">
-            <i class="ti" :class="t.icon" aria-hidden="true" />
-          </div>
+          <ToolLogo
+            :tool-id="t.id"
+            :tool-name="t.name"
+            :fallback-icon="t.icon"
+            :color="t.color"
+            :size="48"
+            class="result-logo"
+          />
 
           <div class="tool-name">{{ t.name }}</div>
           <div class="tool-cat">{{ t.cat }}</div>
@@ -360,14 +367,7 @@ onMounted(async () => {
   white-space:nowrap;
 }
 
-.tool-icon{
-  width:44px;height:44px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;margin-bottom:14px;
-}
-.accent-primary .tool-icon{background:var(--primary-dim);color:var(--primary)}
-.accent-match   .tool-icon{background:var(--match-dim);color:var(--match)}
-.accent-accent  .tool-icon{background:var(--accent-dim);color:var(--accent)}
+.result-logo{margin-bottom:14px}
 
 .tool-name{font-size:18px;font-weight:600;color:var(--text);margin-bottom:2px}
 .tool-cat{font-size:13px;color:var(--text-muted);margin-bottom:18px}
